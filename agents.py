@@ -1,24 +1,7 @@
-from azure.identity import DefaultAzureCredential, get_bearer_token_provider
-from openai import AzureOpenAI
-from dotenv import load_dotenv
 import os
 
-# Load environment variables from .env file
-load_dotenv()
-
-token_provider = get_bearer_token_provider(
-    DefaultAzureCredential(), os.getenv("AZURE_ENDPOINT_SCOPE", "https://cognitiveservices.azure.com/.default")
-)
-
-azure_client = AzureOpenAI(
-    api_version=os.getenv("AZURE_API_VERSION", "2024-08-01-preview"),
-    azure_endpoint=os.getenv("AZURE_ENDPOINT"),
-    azure_ad_token_provider=token_provider
-)
-
-from swarm import Swarm, Agent
-
-client = Swarm(client=azure_client)
+from client import client
+from swarm import Agent
 
 def main():
     def transfer_to_agent_b():
