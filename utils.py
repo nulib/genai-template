@@ -1,4 +1,8 @@
 import json
+import os
+
+from client import client
+
 
 def process_and_print_streaming_response(response):
     content = ""
@@ -52,3 +56,41 @@ def pretty_print_messages(messages) -> None:
             name, args = f["name"], f["arguments"]
             arg_str = json.dumps(json.loads(args)).replace(":", "=")
             print(f"\033[95m{name}\033[0m({arg_str[1:-1]})")
+
+
+def run_demo_loop(
+    starting_agent,
+    context_variables=None,
+    stream=False,
+    debug=False,
+) -> None:
+    print("Starting Swarm CLI 🐝")
+
+    messages = []
+    agent = starting_agent
+    context = context_variables or {}
+
+    while True:
+        user_input = input("\033[90mUser\033[0m: ")
+        messages.append({"role": "user", "content": user_input})
+
+        response = client.run(
+            agent=agent,
+            messages=messages,
+            context_variables=context,
+            stream=stream,
+            debug=debug,
+            model_override=os.getenv("AZURE_DEPLOYMENT_NAME"),
+        )
+
+        if stream:
+            response_content = process_and_print_streaming_response(response)
+        else:
+            pretty_print_messages(response.messages)
+            response_content = response.messages[-1]["content"]
+
+        if hasattr(response, "context_variables") and response.context_variables:
+            context.update(response.context_variables)
+
+        messages.extend(response.messages)
+        agent = response.agent
