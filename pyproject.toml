@@ -5,9 +5,13 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "python-dotenv",
     "azure-identity",
+    "boto3",
+    "langchain",
     "openai",
+    "opensearch-py",
+    "python-dotenv",
+    "requests-aws4auth",
     "swarm",
 ]
 

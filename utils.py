@@ -1,5 +1,6 @@
 import json
 import os
+import time
 
 from client import client
 
@@ -71,7 +72,7 @@ def run_demo_loop(
     context = context_variables or {}
 
     while True:
-        user_input = input("\033[90mUser\033[0m: ")
+        user_input = input("User message: ")
         messages.append({"role": "user", "content": user_input})
 
         response = client.run(

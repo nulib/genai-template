@@ -38,9 +38,7 @@ user_interface_agent = Agent(
 )
 
 if __name__ == "__main__":
-    initial_context = {"user_id": 123, "name": "Brendan"}
     run_demo_loop(
         starting_agent=user_interface_agent,
-        context_variables=initial_context,
         debug=True,
     )
