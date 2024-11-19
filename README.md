@@ -1,6 +1,7 @@
 # Generative AI Template
 
 A Python project template for building AI applications using Azure OpenAI services. This template includes:
+
 - Ready-to-use Azure OpenAI integration
 - Example implementation of AI agents using Swarm
 - Development environment setup with modern Python tools
@@ -26,7 +27,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 brew update && brew install azure-cli
 
 # Login to Azure and choose the subscription that enables you to make OpenAI LLM requests
-az login 
+az login
 ```
 
 3. Clone this repository:
@@ -40,7 +41,7 @@ cd genai-template
 
 ```bash
 uv venv
-source .venv/bin/activate # On Windows use: .venv\Scripts\activate 
+source .venv/bin/activate # On Windows use: .venv\Scripts\activate
 ```
 
 5. Install dependencies:
@@ -60,6 +61,7 @@ AZURE_DEPLOYMENT_NAME=<your-model-deployment-name>
 ```
 
 Replace:
+
 - `<your-resource-name>` with your Azure OpenAI resource name
 - `<your-model-deployment-name>` with your model deployment name (e.g., "gpt-4")
 
@@ -67,11 +69,23 @@ Note: The `.env` file is already included in `.gitignore`
 
 ## Running the Application
 
-To run the agents demo:
+Run the OpenSearch client:
+
 ```bash
-uv run agents.py
+uv run opensearch_client.py
 ```
 
+Run the `langggraph` agents demo:
+
+```bash
+uv run -m langgraph_agents.main
+```
+
+Run the `swarm` agents demo:
+
+```bash
+uv run -m swarm_agents.main
+```
 
 ## Project Structure
 
@@ -82,6 +96,7 @@ uv run agents.py
 ## Dependencies
 
 The project uses these main dependencies:
+
 - `openai` (^1.12.0): Azure OpenAI API client
 - `azure-identity` (^1.15.0): Azure authentication
 - `python-dotenv` (^1.0.0): Environment configuration
@@ -95,10 +110,12 @@ This project uses uv for dependency management. Common commands:
 - Remove a dependency: `uv remove <package-name>`
 - Update dependencies: `uv sync`
 - Run a script: `uv run <script-name>`
+- Run a module: `uv run -m <module-name>`
 
 ## Key Dependencies
 
 The project uses these main dependencies:
+
 - `openai` (^1.12.0): Azure OpenAI API client
 - `azure-identity` (^1.15.0): Azure authentication
 - `python-dotenv` (^1.0.0): Environment configuration
@@ -108,12 +125,14 @@ The project uses these main dependencies:
 
 Common issues and solutions:
 
-1. **Authentication Errors**: 
+1. **Authentication Errors**:
+
    - Ensure you're logged in with `az login`
    - Verify your Azure subscription has OpenAI access
    - Check that your `.env` variables are correct
 
 2. **Model Deployment Issues**:
+
    - Verify your deployment name matches AZURE_DEPLOYMENT_NAME
    - Ensure your Azure OpenAI service is properly configured
    - Check that your Azure account has either `Cognitive Services OpenAI Contributor` or `Cognitive Services OpenAI User` role ([see Azure RBAC documentation](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/role-based-access-control#cognitive-services-openai-contributor))

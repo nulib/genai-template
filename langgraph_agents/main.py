@@ -111,6 +111,14 @@ app = workflow.compile(checkpointer=checkpointer, debug=True)
 
 # Use the Runnable
 final_state = app.invoke(
+    {"messages": [HumanMessage(content="What is the document count by work type?")]},
+    config={"configurable": {"thread_id": 42}},
+)
+final_state["messages"][-1].content
+
+print(final_state["messages"][-1].content)
+
+followup_question = app.invoke(
     {
         "messages": [
             HumanMessage(content="What's the total count of works by collection?")
@@ -118,19 +126,5 @@ final_state = app.invoke(
     },
     config={"configurable": {"thread_id": 42}},
 )
-final_state["messages"][-1].content
 
-print(final_state["messages"][-1].content)
-
-# followup_question = app.invoke(
-#     {
-#         "messages": [
-#             HumanMessage(
-#                 content="Can you search the collection for works about the most common subject variant?"
-#             )
-#         ]
-#     },
-#     config={"configurable": {"thread_id": 42}},
-# )
-
-# print(followup_question["messages"][-1].content)
+print(followup_question["messages"][-1].content)
