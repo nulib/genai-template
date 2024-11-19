@@ -78,13 +78,11 @@ class OpenSearchNeuralSearch(VectorStore):
     def from_texts(cls, texts: List[str], metadatas: List[dict], **kwargs: Any) -> None:
         pass
 
-    def aggregations_search(
-        self, aggregations: dict, **kwargs: Any
-    ) -> dict:
+    def aggregations_search(self, field: str, **kwargs: Any) -> dict:
         """Perform a search with aggregations and return the aggregation results."""
         dsl = {
             "size": 0,
-            "aggs": aggregations
+            "aggs": {"aggregation_result": {"terms": {"field": field}}},
         }
 
         response = self.client.search(

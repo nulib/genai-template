@@ -35,13 +35,30 @@ from langgraph.prebuilt import ToolNode
 
 @tool
 def search(query: str):
-    """Call for semantic search of Northwestern University Library digital collections."""
-    # This is a placeholder, but don't tell the LLM that...
+    """Perform a semantic search of Northwestern University Library digital collections."""
     query_results = opensearch_vector_store.similarity_search(query, size=20)
     return json.dumps(query_results, default=str)
 
 
-tools = [search]
+@tool
+def aggregate(aggregation_query: str):
+    """Perform a quantitative aggregation on the OpenSearch index.
+
+    Available fields:
+        ['accession_number', 'api_link', 'api_model', 'ark', 'box_name', 'box_number', 'catalog_key', 'collection.title.keyword', 'contributor.label.keyword', 'create_date', 'creator.id', 'date_created', 'embedding_model', 'embedding_text_length', 'genre.id', 'id', 'indexed_at', 'language.id', 'legacy_identifier', 'library_unit', 'license.id', 'location.id', 'modified_date', 'preservation_level', 'provenance', 'published', 'publisher', 'related_url.label', 'rights_holder', 'rights_statement.id', 'scope_and_contents', 'series', 'source', 'status', 'style_period.label.keyword', 'style_period.variants', 'subject.id', 'subject.variants', 'table_of_contents', 'technique.id', 'technique.variants', 'terms_of_use', 'title.keyword', 'visibility', 'work_type']
+
+    Examples:
+    Query about the number of collections: collection.title.keyword
+    Query about the number of works by work type: work_type
+    """
+    try:
+        response = opensearch_vector_store.aggregations_search(aggregation_query)
+        return json.dumps(response, default=str)
+    except Exception as e:
+        return json.dumps({"error": str(e)})
+
+
+tools = [search, aggregate]
 
 tool_node = ToolNode(tools)
 
@@ -75,36 +92,28 @@ workflow.add_node("agent", call_model)
 workflow.add_node("tools", tool_node)
 
 # Set the entrypoint as `agent`
-# This means that this node is the first one called
 workflow.add_edge(START, "agent")
 
-# We now add a conditional edge
+# Add a conditional edge
 workflow.add_conditional_edges(
-    # First, we define the start node. We use `agent`.
-    # This means these are the edges taken after the `agent` node is called.
     "agent",
-    # Next, we pass in the function that will determine which node is called next.
     should_continue,
 )
 
-# We now add a normal edge from `tools` to `agent`.
-# This means that after `tools` is called, `agent` node is called next.
+# Add a normal edge from `tools` to `agent`
 workflow.add_edge("tools", "agent")
 
 # Initialize memory to persist state between graph runs
 checkpointer = MemorySaver()
 
-# Finally, we compile it!
-# This compiles it into a LangChain Runnable,
-# meaning you can use it as you would any other runnable.
-# Note that we're (optionally) passing the memory when compiling the graph
+# Compile the graph
 app = workflow.compile(checkpointer=checkpointer, debug=True)
 
 # Use the Runnable
 final_state = app.invoke(
     {
         "messages": [
-            HumanMessage(content="Can you search for photographs of Nairobi, Kenya?")
+            HumanMessage(content="What's the total count of works by collection?")
         ]
     },
     config={"configurable": {"thread_id": 42}},
@@ -112,3 +121,16 @@ final_state = app.invoke(
 final_state["messages"][-1].content
 
 print(final_state["messages"][-1].content)
+
+# followup_question = app.invoke(
+#     {
+#         "messages": [
+#             HumanMessage(
+#                 content="Can you search the collection for works about the most common subject variant?"
+#             )
+#         ]
+#     },
+#     config={"configurable": {"thread_id": 42}},
+# )
+
+# print(followup_question["messages"][-1].content)

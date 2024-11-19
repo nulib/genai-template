@@ -9,15 +9,17 @@ from utils import run_demo_loop
 def similarity_search(context_variables, query):
     """Query the search index for relevant documents."""
     print(f"Searching with query: {query}")
-    query_results = opensearch_vector_store.similarity_search(query, size=100)
+    query_results = opensearch_vector_store.similarity_search(query, size=20)
     context_variables["source"] = query_results
     return json.dumps(query_results, default=str)
+
 
 def flag_problematic_records(context_variables):
     """Flag problematic records in the source."""
     source = context_variables.get("source", None)
     print(f"Flagging problematic records: {source}")
     return "Problematic records flagged"
+
 
 def mark_as_approved(context_variables):
     """Mark a record as approved."""
@@ -69,7 +71,12 @@ def search_agent_instructions(context_variables):
 search_agent = Agent(
     name="Search Agent",
     instructions=search_agent_instructions,
-    functions=[transfer_to_triage, transfer_to_formatter, similarity_search, mark_as_approved],
+    functions=[
+        transfer_to_triage,
+        transfer_to_formatter,
+        similarity_search,
+        mark_as_approved,
+    ],
 )
 
 
@@ -89,5 +96,5 @@ if __name__ == "__main__":
     run_demo_loop(
         context_variables={"name": "Brendan"},
         starting_agent=triage_agent,
-        debug=False,
+        debug=True,
     )
