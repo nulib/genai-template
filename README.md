@@ -55,15 +55,19 @@ uv sync
 
 ```plaintext
 AZURE_ENDPOINT=https://<your-resource-name>.openai.azure.com/
-AZURE_ENDPOINT_SCOPE=https://cognitiveservices.azure.com/.default
 AZURE_API_VERSION=2024-08-01-preview
+AZURE_ENDPOINT_SCOPE=https://cognitiveservices.azure.com/.default
 AZURE_DEPLOYMENT_NAME=<your-model-deployment-name>
+OPENSEARCH_ENDPOINT=<your-opensearch-endpoint>
+OPENSEARCH_MODEL_ID=<your-opensearch-model-id>
 ```
 
 Replace:
 
 - `<your-resource-name>` with your Azure OpenAI resource name
 - `<your-model-deployment-name>` with your model deployment name (e.g., "gpt-4")
+- `<your-opensearch-endpoint>` with your OpenSearch domain endpoint
+- `<your-opensearch-model-id>` with your OpenSearch model ID
 
 Note: The `.env` file is already included in `.gitignore`
 
