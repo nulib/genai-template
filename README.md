@@ -89,18 +89,22 @@ uv run -m swarm_agents.main
 
 ## Project Structure
 
-- `agents.py`: Sample application file containing an OpenAI Swarm agent implementation example
-- `pyproject.toml`: Project configuration and dependencies
-- `.env`: Environment variables (not included in repository)
+This project is organized around two main agent frameworks: `langgraph_agents/` for graph-based workflows and `swarm_agents/` for OpenAI's Swarm framework. Each framework directory contains its own implementation of agents, tools, and workflows. A `cli/` directory provides one example of implementing command-line interface capabilities. Shared infrastructure components like the OpenAI client, OpenSearch integration, and utility functions reside in the root directory. Configuration is managed through `pyproject.toml` and environment variables (`.env`).
 
 ## Dependencies
 
 The project uses these main dependencies:
 
-- `openai` (^1.12.0): Azure OpenAI API client
-- `azure-identity` (^1.15.0): Azure authentication
-- `python-dotenv` (^1.0.0): Environment configuration
-- `swarm` (latest): Agent implementation framework
+- `azure-identity` (^1.19.0): Azure authentication
+- `langchain` (^0.3.7): LangChain framework
+- `langchain-openai` (^0.2.8): LangChain OpenAI integration
+- `langgraph` (^0.2.50): Graph-based workflow framework
+- `openai` (^1.54.4): Azure OpenAI API client
+- `opensearch-py` (^2.7.1): OpenSearch client
+- `python-dotenv` (^1.0.1): Environment configuration
+- `swarm` (latest): Agent implementation framework from OpenAI
+- `boto3` (^1.35.63): AWS SDK for Python
+- `requests-aws4auth` (^0.4.3): AWS request signing
 
 ## Development
 
@@ -116,10 +120,16 @@ This project uses uv for dependency management. Common commands:
 
 The project uses these main dependencies:
 
-- `openai` (^1.12.0): Azure OpenAI API client
-- `azure-identity` (^1.15.0): Azure authentication
-- `python-dotenv` (^1.0.0): Environment configuration
-- `swarm` (latest): Agent implementation framework
+- `azure-identity` (^1.19.0): Azure authentication
+- `boto3` (^1.35.63): AWS SDK for Python
+- `langchain-openai` (^0.2.8): LangChain OpenAI integration
+- `langchain` (^0.3.7): LangChain framework
+- `langgraph` (^0.2.50): Graph-based workflow framework
+- `openai` (^1.54.4): Azure OpenAI API client
+- `opensearch-py` (^2.7.1): OpenSearch client
+- `python-dotenv` (^1.0.1): Environment configuration
+- `requests-aws4auth` (^0.4.3): AWS request signing
+- `swarm` (latest): Agent implementation framework from OpenAI
 
 ## Troubleshooting
 
@@ -127,7 +137,7 @@ Common issues and solutions:
 
 1. **Authentication Errors**:
 
-   - Ensure you're logged in with `az login`
+   - Ensure you're logged in with `az login` and `aws sso login`
    - Verify your Azure subscription has OpenAI access
    - Check that your `.env` variables are correct
 

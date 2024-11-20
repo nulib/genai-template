@@ -12,7 +12,6 @@ def repl(app):
     Or qualitative questions like:
         - Can you show me works about Willie Mays?
         - Which musicians played the Berkeley Folk Music Festival?
-        - Who was Mimi Fariña? Did she play the viola?
         - What kinds of food could you order on a transantlantic flight during the golden age of air travel?
     """)
     
