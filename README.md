@@ -97,7 +97,7 @@ This project is organized around two main agent frameworks: `langgraph_agents/` 
 
 ## Dependencies
 
-The project uses these main dependencies:
+The project uses these dependencies:
 
 - `azure-identity` (^1.19.0): Azure authentication
 - `langchain` (^0.3.7): LangChain framework
@@ -119,21 +119,6 @@ This project uses uv for dependency management. Common commands:
 - Update dependencies: `uv sync`
 - Run a script: `uv run <script-name>`
 - Run a module: `uv run -m <module-name>`
-
-## Key Dependencies
-
-The project uses these main dependencies:
-
-- `azure-identity` (^1.19.0): Azure authentication
-- `boto3` (^1.35.63): AWS SDK for Python
-- `langchain-openai` (^0.2.8): LangChain OpenAI integration
-- `langchain` (^0.3.7): LangChain framework
-- `langgraph` (^0.2.50): Graph-based workflow framework
-- `openai` (^1.54.4): Azure OpenAI API client
-- `opensearch-py` (^2.7.1): OpenSearch client
-- `python-dotenv` (^1.0.1): Environment configuration
-- `requests-aws4auth` (^0.4.3): AWS request signing
-- `swarm` (latest): Agent implementation framework from OpenAI
 
 ## Troubleshooting
 
