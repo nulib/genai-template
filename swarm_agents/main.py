@@ -45,12 +45,12 @@ def transfer_to_triage():
 
 def triage_instructions(context_variables):
     name = context_variables.get("name", "friend")
-    return f"""You are to triage a users request, and call a tool to transfer to the right intent.
-    Once you are ready to transfer to the right intent, call the tool to transfer to the right intent.
-    You dont need to know specifics, just the topic of the request.
-    When you need more information to triage the request to an agent, ask a direct question without explaining why you're asking it.
-    Do not share your thought process with the user! Do not make unreasonable assumptions on behalf of user.
-    The user context is here: {name}"""
+    return f"""You are to triage a user's request, and call a tool to transfer to the right intent.
+Once you are ready to transfer to the right intent, call the tool to transfer to the right intent.
+You don't need to know specifics, just the topic of the request.
+When you need more information to triage the request to an agent, ask a direct question without explaining why you're asking it.
+Do not share your thought process with the user! Do not make unreasonable assumptions on behalf of user.
+The user context is here: {name}"""
 
 
 triage_agent = Agent(
@@ -63,9 +63,9 @@ triage_agent = Agent(
 def search_agent_instructions(context_variables):
     source = context_variables.get("source", None)
     return f"""You are a search agent. Your current source information is: {source}
-    Ask clarifying questions to make sure you know the user's search intent if necessary. 
-    Queries are stored in your context when the function is called. 
-    If you already have the proper sources in context, transfter to the appropriate agent."""
+Ask clarifying questions to make sure you know the user's search intent if necessary. 
+Queries are stored in your context when the function is called. 
+If you already have the proper sources in context, transfer to the appropriate agent."""
 
 
 search_agent = Agent(
@@ -83,7 +83,7 @@ search_agent = Agent(
 def formatter_instructions(context_variables):
     source = context_variables.get("source", None)
     return f"""You are a formatter agent. Your current source information is: {source}
-    Format the source documents according to the user's instructions. Focus only on the source information that is relevant to the user's request."""
+Format the source documents according to the user's instructions. Focus only on the source information that is relevant to the user's request."""
 
 
 formatter_agent = Agent(
@@ -92,9 +92,14 @@ formatter_agent = Agent(
     functions=[transfer_to_triage],
 )
 
-if __name__ == "__main__":
+
+def main():
     run_demo_loop(
         context_variables={"name": "Brendan"},
         starting_agent=triage_agent,
         debug=True,
     )
+
+
+if __name__ == "__main__":
+    main()

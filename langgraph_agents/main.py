@@ -60,5 +60,10 @@ checkpointer = MemorySaver()
 # Compile the graph
 app = workflow.compile(checkpointer=checkpointer, debug=True)
 
-if __name__ == "__main__":
+
+def main():
     repl(app)
+
+
+if __name__ == "__main__":
+    main()

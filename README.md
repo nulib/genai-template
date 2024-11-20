@@ -73,7 +73,7 @@ Note: The `.env` file is already included in `.gitignore`
 
 ## Running the Application
 
-Run the OpenSearch client:
+Run the OpenSearch client manually:
 
 ```bash
 uv run opensearch_client.py
@@ -82,13 +82,13 @@ uv run opensearch_client.py
 Run the `langggraph` agents demo:
 
 ```bash
-uv run -m langgraph_agents.main
+uv run langgraph
 ```
 
 Run the `swarm` agents demo:
 
 ```bash
-uv run -m swarm_agents.main
+uv run swarm
 ```
 
 ## Project Structure
