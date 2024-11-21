@@ -25,7 +25,7 @@ swarm = "swarm_agents.main:main"
 swarm = { git = "https://github.com/openai/swarm.git" }
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/azure_ai", "langgraph_agents"]
+packages = ["src/azure_ai", "langgraph_agents", "swarm_agents"]
 
 [build-system]
 requires = ["hatchling"]

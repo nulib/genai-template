@@ -91,6 +91,8 @@ Run the `swarm` agents demo:
 uv run swarm
 ```
 
+Note: check the pyproject.toml file 
+
 ## Project Structure
 
 This project is organized around two main agent frameworks: `langgraph_agents/` for graph-based workflows and `swarm_agents/` for OpenAI's Swarm framework. Each framework directory contains its own implementation of agents, tools, and workflows. A `cli/` directory provides one example of implementing command-line interface capabilities. Shared infrastructure components like the OpenAI client, OpenSearch integration, and utility functions reside in the root directory. Configuration is managed through `pyproject.toml` and environment variables (`.env`).
@@ -119,6 +121,24 @@ This project uses uv for dependency management. Common commands:
 - Update dependencies: `uv sync`
 - Run a script: `uv run <script-name>`
 - Run a module: `uv run -m <module-name>`
+
+## Run as a standalone application
+
+To install the `langgraph` or `swarm` as a local CLI tool, follow these steps:
+
+```bash
+# In any directory you choose:
+
+uv venv langgraph
+source langgraph/bin/activate
+uv pip install git+https://github.com/nulib/genai-template
+langgraph
+
+# AzureOpenAI client initialized
+# Session: Session(region_name='us-east-1')
+# ...
+# User: 
+```
 
 ## Troubleshooting
 

@@ -58,7 +58,7 @@ workflow.add_edge("tools", "agent")
 checkpointer = MemorySaver()
 
 # Compile the graph
-app = workflow.compile(checkpointer=checkpointer, debug=True)
+app = workflow.compile(checkpointer=checkpointer, debug=False)
 
 
 def main():
