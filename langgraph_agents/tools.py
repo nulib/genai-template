@@ -10,16 +10,25 @@ def search(query: str):
     query_results = opensearch_vector_store.similarity_search(query, size=20)
     return json.dumps(query_results, default=str)
 
+
 @tool
 def aggregate(aggregation_query: str):
-    """Perform a quantitative aggregation on the OpenSearch index.
+    """
+    Perform a quantitative aggregation on the OpenSearch index.
 
     Available fields:
-        ['accession_number', 'api_link', 'api_model', 'ark', 'box_name', 'box_number', 'catalog_key', 'collection.title.keyword', 'contributor.label.keyword', 'create_date', 'creator.id', 'date_created', 'embedding_model', 'embedding_text_length', 'genre.id', 'id', 'indexed_at', 'language.id', 'legacy_identifier', 'library_unit', 'license.id', 'location.id', 'modified_date', 'preservation_level', 'provenance', 'published', 'publisher', 'related_url.label', 'rights_holder', 'rights_statement.id', 'scope_and_contents', 'series', 'source', 'status', 'style_period.label.keyword', 'style_period.variants', 'subject.id', 'subject.variants', 'table_of_contents', 'technique.id', 'technique.variants', 'terms_of_use', 'title.keyword', 'visibility', 'work_type']
+    api_link, api_model, ark, collection.title.keyword, contributor.label.keyword, contributor.variants, 
+    create_date, creator.variants, date_created, embedding_model, embedding_text_length,
+    folder_name, folder_number, genre.variants, id, identifier, indexed_at, language.variants, 
+    legacy_identifier, library_unit, location.variants, modified_date, notes.note, notes.type,
+    physical_description_material, physical_description_size, preservation_level, provenance, published, publisher, 
+    related_url.url, related_url.label, representative_file_set.aspect_ratio, representative_file_set.url, rights_holder,
+    series, status, style_period.label.keyword, style_period.variants, subject.label.keyword, subject.role, 
+    subject.variants, table_of_contents, technique.label.keyword, technique.variants, title.keyword, visibility, work_type
 
     Examples:
-    Query about the number of collections: collection.title.keyword
-    Query about the number of works by work type: work_type
+        - Number of collections: collection.title.keyword
+        - Number of works by work type: work_type
     """
     try:
         response = opensearch_vector_store.aggregations_search(aggregation_query)

@@ -72,4 +72,3 @@ info = opensearch_client.info()
 print(f"Connected to OpenSearch version {info['version']['number']}")
 
 
-opensearch_vector_store = opensearch_vector_store()
