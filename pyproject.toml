@@ -10,6 +10,7 @@ dependencies = [
     "langchain>=0.3.7",
     "langchain-openai>=0.2.8",
     "langgraph>=0.2.50",
+    "ollama>=0.4.2",
     "openai>=1.54.4",
     "opensearch-py>=2.7.1",
     "python-dotenv>=1.0.1",
